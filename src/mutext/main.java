@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package muetext;
+package mutext;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -55,7 +55,7 @@ public class main extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("TextEdit");
+        setTitle("µText");
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -192,7 +192,7 @@ public class main extends javax.swing.JFrame {
                   
                   System.out.println("Settings:  " );
                 
-                 //sc.useDelimiter("font:");
+                 
                  
                 
                  jTextArea1.setText(cache);
@@ -219,16 +219,14 @@ public class main extends javax.swing.JFrame {
         int returnVal = jd.showSaveDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             File file = new File(jd.getSelectedFile().getAbsolutePath());
-            String header = "!TextEdit.setting..";
+            String header = "!muText.setting..";
             String headerContent = new String(header + "font:" + jTextArea1.getFont().getName() + "|");
             String cache = new String(jTextArea1.getText());
             
             try {
-                //MessageDigest md = MessageDigest.getInstance("MD5");
-                //md.update(cache.getBytes());
-                //byte[] output = md.digest();
+                
                 FileWriter writer = new FileWriter(file);
-                //writer.write(bytesToHash(output));
+                
                 writer.write(headerContent);
                 writer.write(cache);
                  writer.flush();
