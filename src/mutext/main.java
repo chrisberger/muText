@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.security.*;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -31,6 +32,7 @@ public class main extends javax.swing.JFrame {
     public main() {
         initComponents();
         loadFonts();
+       
     }
 
     /**
@@ -44,29 +46,30 @@ public class main extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        TextArea = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        fontLabel = new javax.swing.JLabel();
+        fontComboBox = new javax.swing.JComboBox();
         jCheckBox1 = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        fileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        settingsMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("µText");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        TextArea.setColumns(20);
+        TextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        TextArea.setRows(5);
+        jScrollPane1.setViewportView(TextArea);
 
-        jLabel1.setText("Schriftart");
+        fontLabel.setText("Schriftart");
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        fontComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                fontComboBoxActionPerformed(evt);
             }
         });
 
@@ -78,9 +81,9 @@ public class main extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(fontLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fontComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                 .addComponent(jCheckBox1)
                 .addGap(115, 115, 115))
@@ -90,8 +93,8 @@ public class main extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fontLabel)
+                    .addComponent(fontComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox1))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
@@ -117,7 +120,7 @@ public class main extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("Datei");
+        fileMenu.setText("Datei");
 
         jMenuItem1.setText("Öffnen");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +128,7 @@ public class main extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        fileMenu.add(jMenuItem1);
 
         jMenuItem2.setText("Speichern");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -133,9 +136,12 @@ public class main extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        fileMenu.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(fileMenu);
+
+        settingsMenu.setText("Einstellungen");
+        jMenuBar1.add(settingsMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -173,8 +179,8 @@ public class main extends javax.swing.JFrame {
                      
                      for(Font j:f) {
                          if(j.getName().equals(font[1])) {
-                             jTextArea1.setFont( j.deriveFont(13.0f));
-                            jComboBox1.setSelectedItem(j.getName());
+                             TextArea.setFont( j.deriveFont(13.0f));
+                            fontComboBox.setSelectedItem(j.getName());
                             
                          }
                      }
@@ -195,7 +201,7 @@ public class main extends javax.swing.JFrame {
                  
                  
                 
-                 jTextArea1.setText(cache);
+                 TextArea.setText(cache);
                  
                  cache=null;
                  open.close();
@@ -220,8 +226,8 @@ public class main extends javax.swing.JFrame {
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             File file = new File(jd.getSelectedFile().getAbsolutePath());
             String header = "!muText.setting..";
-            String headerContent = new String(header + "font:" + jTextArea1.getFont().getName() + "|");
-            String cache = new String(jTextArea1.getText());
+            String headerContent = new String(header + "font:" + TextArea.getFont().getName() + "|");
+            String cache = new String(TextArea.getText());
             
             try {
                 
@@ -243,16 +249,16 @@ public class main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void fontComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fontComboBoxActionPerformed
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Font []f = e.getAllFonts();
         for(Font j : f) {
-            if(j.getName().equals(jComboBox1.getSelectedItem())) {
+            if(j.getName().equals(fontComboBox.getSelectedItem())) {
                
-              jTextArea1.setFont(j.deriveFont(13.0f));
+              TextArea.setFont(j.deriveFont(13.0f));
             }
         }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_fontComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,26 +300,28 @@ public class main extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea TextArea;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JComboBox fontComboBox;
+    private javax.swing.JLabel fontLabel;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JMenu settingsMenu;
     // End of variables declaration//GEN-END:variables
 
     private void loadFonts() {
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Font f[] = e.getAllFonts();
         for(Font j : f) {
-            jComboBox1.addItem(j.getName());
+            fontComboBox.addItem(j.getName());
         }
-        jComboBox1.setSelectedItem(jComboBox1.getSelectedIndex());
+        fontComboBox.setSelectedItem(fontComboBox.getSelectedIndex());
        
     }
+    
 }
