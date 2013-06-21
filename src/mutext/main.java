@@ -32,7 +32,7 @@ public class main extends javax.swing.JFrame {
     public main() {
         initComponents();
         loadFonts();
-       
+
     }
 
     /**
@@ -150,112 +150,103 @@ public class main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-//       JFileChooser fc = new JFileChooser();
-//        int returnVal = fc.showDialog(main.this, "Attach");
-//        FileDialog fd = new FileDialog(this, rootPaneCheckingEnabled);
-//        fd.setVisible(true);
-          JFileChooser chooser = new JFileChooser();
-//            FileNameExtensionFilter filter = new FileNameExtensionFilter("sdpt");
-//        chooser.setFileFilter(filter);
+
+        JFileChooser chooser = new JFileChooser();
+
         int returnVal = chooser.showOpenDialog(this);
-       GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-       Font []f = e.getAllFonts();
-     if(returnVal == JFileChooser.APPROVE_OPTION) {
-          String cache=new String();
-         BufferedReader br;
-         
-       
-              try {
-                  FileReader open = new FileReader(chooser.getSelectedFile().getAbsolutePath());
-                  br = new BufferedReader(open);
-                  String zeile;
-                  zeile = br.readLine();
-                  String settings = zeile.substring(zeile.indexOf("..")+2, zeile.indexOf("|"));
-                  cache+=zeile.substring(zeile.indexOf("|")+1);
-                  System.out.println("data: " + settings );
-                  String[] font = settings.split("font:");
-              
-                  
-                     
-                     for(Font j:f) {
-                         if(j.getName().equals(font[1])) {
-                             TextArea.setFont( j.deriveFont(13.0f));
-                            fontComboBox.setSelectedItem(j.getName());
-                            
-                         }
-                     }
-                 
-                     
-                 zeile=br.readLine();
-                 while(zeile!=null) {
-                     
-                     cache+=(zeile+"\n");
-                      
-                      zeile = br.readLine();
-                     
-                  }
-                  System.out.println("Zeile: " + cache);
-                  
-                  System.out.println("Settings:  " );
+        GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Font[] f = e.getAllFonts();
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            String cache = new String();
+            BufferedReader br;
+
+
+            try {
+                FileReader open = new FileReader(chooser.getSelectedFile().getAbsolutePath());
+                br = new BufferedReader(open);
+                String zeile;
+                zeile = br.readLine();
+                String settings = zeile.substring(zeile.indexOf("..") + 2, zeile.indexOf("|"));
+                cache += zeile.substring(zeile.indexOf("|") + 1);
+                System.out.println("data: " + settings);
+                String[] font = settings.split("font:");
+
+
+                for (Font j : f) {
+                    if (j.getName().equals(font[1])) {
+                        TextArea.setFont(j.deriveFont(13.0f));
+                        fontComboBox.setSelectedItem(j.getName());
+
+                    }
+                }
+
+
+                zeile = br.readLine();
+                while (zeile != null) {
+
+                    cache += (zeile + "\n");
+
+                    zeile = br.readLine();
+
+                }
+                System.out.println("Zeile: " + cache);
+                System.out.println("Settings:  ");
                 
-                 
-                 
-                
-                 TextArea.setText(cache);
-                 
-                 cache=null;
-                 open.close();
-                 br.close();
-                 
-              } catch (FileNotFoundException ex) {
-                  Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-              } catch (IOException ex) {
-                  Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-              }
-       
-    }
- 
-        
-        
-        
+                TextArea.setText(cache);
+
+                cache = null;
+                open.close();
+                br.close();
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+
+
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         JFileChooser jd = new JFileChooser();
         int returnVal = jd.showSaveDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = new File(jd.getSelectedFile().getAbsolutePath());
             String header = "!muText.setting..";
             String headerContent = new String(header + "font:" + TextArea.getFont().getName() + "|");
             String cache = new String(TextArea.getText());
-            
+
             try {
-                
+
                 FileWriter writer = new FileWriter(file);
-                
+
                 writer.write(headerContent);
                 writer.write(cache);
-                 writer.flush();
+                writer.flush();
                 writer.close();
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-            
-               
-            
-            
+            }
+
+
+
+
         }
-        
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void fontComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fontComboBoxActionPerformed
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Font []f = e.getAllFonts();
-        for(Font j : f) {
-            if(j.getName().equals(fontComboBox.getSelectedItem())) {
-               
-              TextArea.setFont(j.deriveFont(13.0f));
+        Font[] f = e.getAllFonts();
+        for (Font j : f) {
+            if (j.getName().equals(fontComboBox.getSelectedItem())) {
+
+                TextArea.setFont(j.deriveFont(13.0f));
             }
         }
     }//GEN-LAST:event_fontComboBoxActionPerformed
@@ -276,8 +267,8 @@ public class main extends javax.swing.JFrame {
                 if ("GTK+".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                } else if("Windows".equals(info.getName())) {
-                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                } else if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
@@ -317,11 +308,10 @@ public class main extends javax.swing.JFrame {
     private void loadFonts() {
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Font f[] = e.getAllFonts();
-        for(Font j : f) {
+        for (Font j : f) {
             fontComboBox.addItem(j.getName());
         }
         fontComboBox.setSelectedItem(fontComboBox.getSelectedIndex());
-       
+
     }
-    
 }
